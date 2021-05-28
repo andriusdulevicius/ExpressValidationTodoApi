@@ -1,6 +1,6 @@
 //visa info npm express , kad paziureti nuo ko pradeti , ir kaip atrodo visas express remas
 const express = require('express');
-const { findTodoWithId, handleFindErr } = require('./helper/functions');
+const { findTodoWithId, handleFindErr, handleDelete } = require('./helper/functions');
 const todoDb = require('./DB/todoDb');
 
 const app = express();
@@ -30,9 +30,7 @@ app.delete('/api/todos/:id', (req, res) => {
     handleFindErr(paramId, res);
     return;
   }
-  //istrinam todo su splice, nes todoDb yra const, mes rasim norimo istrinti todo index ir pasalinsim
-  const index = todoDb.indexOf(found);
-  todoDb.splice(index, 1);
+  handleDelete(found);
   res.json({ deleted: found, todoDb });
 });
 
