@@ -17,8 +17,27 @@ function handleDelete(found) {
   todoDb.splice(index, 1);
 }
 
+let idCount = 4;
+function postOneTodo(req) {
+  const { title } = req.body;
+  const newTodo = {
+    id: idCount++,
+    title: title,
+    done: false,
+  };
+  todoDb.push(newTodo);
+}
+
+function editTodo(found, req) {
+  const { title, done } = req.body;
+  found.title = title;
+  found.done = done;
+}
+
 module.exports = {
   findTodoWithId,
   handleFindErr,
   handleDelete,
+  postOneTodo,
+  editTodo,
 };
