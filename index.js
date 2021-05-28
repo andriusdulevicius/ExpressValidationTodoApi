@@ -30,8 +30,10 @@ app.delete('/api/todos/:id', (req, res) => {
     handleFindErr(paramId, res);
     return;
   }
-
-  res.json({ youWantToDelete: found });
+  //istrinam todo su splice, nes todoDb yra const, mes rasim norimo istrinti todo index ir pasalinsim
+  const index = todoDb.indexOf(found);
+  todoDb.splice(index, 1);
+  res.json({ deleted: found, todoDb });
 });
 
 app.listen(3000, () => console.log('server is runing'));
